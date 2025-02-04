@@ -1,27 +1,61 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Alerta } from "../components/Alerta";
 
 const Registrar = () => {
 	const [nombre, setNombre] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [repetirPassword, setRepetirPassword] = useState("");
+	const [alerta, setAlerta] = useState({});
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async e => {
 		e.preventDefault();
 		if ([nombre, email, password, repetirPassword].includes("")) {
-			console.log("hay al menos un campo vacio");
+			setAlerta({ msg: "Todos los campos son obligatorios", error: true });
 			return;
 		}
 		if (password !== repetirPassword) {
-			console.log("Los password no son iguales");
+			setAlerta({ msg: "Los password no son iguales", error: true });
 			return;
 		}
 		if (password.length < 6) {
-			console.log("El password debe ser de al menos 6 caracteres");
+			setAlerta({
+				msg: "El password debe tener al menos 6 caracteres",
+				error: true,
+			});
 			return;
 		}
+		setAlerta({});
+
+    try {
+      const url = "http://localhost:4000/api/veterinario"
+      const call =await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({nombre, email, password}),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+	  const response = await call.json()
+	  if (call.status === 200) {
+		setAlerta({
+			msg: "Creado correctamente, revisa tu email",
+			error: false
+		})
+	  } else {
+		setAlerta({
+			msg: response.msg,
+			error: true
+		})
+	  }
+    } catch (error) {
+		console.log("Hubo un error en la conexion", error)
+    }
+
 	};
+
+	const { msg } = alerta;
 
 	return (
 		<>
@@ -32,6 +66,9 @@ const Registrar = () => {
 				</h1>
 			</div>
 			<div className="mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
+				{msg && <Alerta 
+          alerta={alerta} 
+        />}
 				<form onSubmit={handleSubmit}>
 					<div className="my-5">
 						<label className="uppercase text-gray-600 block text-xl font-bold">
