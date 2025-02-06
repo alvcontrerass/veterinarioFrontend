@@ -12,7 +12,7 @@ const ConfirmarCuenta = () => {
 	useEffect(() => {
 		const confirmarCuenta = async () => {
 			try {
-				const url = `http://localhost:4000/api/veterinario/confirmar/${token}`
+				const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinario/confirmar/${token}`
 				const call = await fetch(url)
 				const response = await call.json();
 				console.log(call.ok)

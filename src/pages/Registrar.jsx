@@ -29,7 +29,7 @@ const Registrar = () => {
 		setAlerta({});
 
     try {
-      const url = "http://localhost:4000/api/veterinario"
+      const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinario`
       const call =await fetch(url, {
         method: "POST",
         body: JSON.stringify({nombre, email, password}),
