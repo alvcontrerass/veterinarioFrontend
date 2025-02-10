@@ -34,7 +34,7 @@ const ReestablecerPassword = () => {
 			}
 		};
 		comprobarToken();
-	}, [token]);
+	}, []);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
