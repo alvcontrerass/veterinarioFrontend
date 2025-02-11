@@ -31,17 +31,17 @@ const Login = () => {
 				},
 			});
 			const response = await call.json();
-			if(!call.status) {
-				localStorage.setItem("token", response.token)
-				console.log("token guardado en localStorage")
-				navigate("/admin")
-			} else {
+			console.log(call)
+			if(!call.ok) {
 				setAlerta({
-					msg: "El correo o password ingresado son incorrectos",
+					msg: response.msg,
 					error: true,
 				});
-				return;
+				return
 			}
+			localStorage.setItem("token", response.token)
+			console.log("token guardado en localStorage")
+			navigate("/admin")
 		} catch (error) {
 			console.log(error);
 		}
