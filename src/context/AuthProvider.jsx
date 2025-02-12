@@ -3,11 +3,15 @@ import { useState, useEffect, createContext } from "react";
 const AuthContext = createContext();
 export const AuthProvider = ({children}) => {
     
+    const [cargando, setCargando] = useState(true)
     const [auth, setAuth] = useState({})
     useEffect(() => {
       const autenticarUsuario = async () => {
         const token = localStorage.getItem('token')
-        if(!token) return;
+        if(!token) {
+            setCargando(false)
+            return;
+        }
 
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinario/perfil`
@@ -28,6 +32,7 @@ export const AuthProvider = ({children}) => {
         } catch (error) {
             console.log(error)
         }
+        setCargando(false)
       }
     
       autenticarUsuario();
@@ -37,7 +42,8 @@ export const AuthProvider = ({children}) => {
         <AuthContext.Provider
             value={{
                 auth,
-                setAuth
+                setAuth,
+                cargando
             }}
         >
             {children}

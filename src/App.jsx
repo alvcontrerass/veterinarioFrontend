@@ -1,11 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './context/AuthProvider'
 import AuthLayout from './layout/AuthLayout'
+import RutaProtegida  from "./layout/RutaProtegida"
 import Login from './pages/Login'
 import OlvidePassword from './pages/OlvidePassword'
 import Registrar from './pages/Registrar'
 import ConfirmarCuenta from './pages/ConfirmarCuenta'
 import ReestablecerPassword from './pages/ReestablecerPassword'
-import { AuthProvider } from './context/AuthProvider'
+import AdmnistrarPaciente from './pages/AdministrarPaciente'
+
+
 
 function App() {
   return (
@@ -18,6 +22,9 @@ function App() {
             <Route path="olvide-password" element={<OlvidePassword />} />
             <Route path="olvide-password/:token" element={<ReestablecerPassword />} />
             <Route path="confirmar/:token" element={<ConfirmarCuenta />} />
+          </Route>
+          <Route path="/admin" element={<RutaProtegida />}>
+            <Route index element={<AdmnistrarPaciente />} />
           </Route>
         </Routes>
         </AuthProvider>
