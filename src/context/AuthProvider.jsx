@@ -28,7 +28,7 @@ export const AuthProvider = ({children}) => {
                 setAuth({})
                 return
             }
-            setAuth(response)
+            setAuth(response.perfil)
         } catch (error) {
             console.log(error)
         }
@@ -38,12 +38,18 @@ export const AuthProvider = ({children}) => {
       autenticarUsuario();
     }, [])
 
+    const cerrarSesion = () => {
+        localStorage.removeItem('token')
+        setAuth({})
+    }
+
     return(
         <AuthContext.Provider
             value={{
                 auth,
                 setAuth,
-                cargando
+                cargando,
+                cerrarSesion
             }}
         >
             {children}
