@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Alerta } from "./Alerta";
+import usePaciente from "../hooks/usePaciente";
 
 const Formulario = () => {
     const [nombre, setNombre] = useState("");
     const [propietario, setPropietario] = useState("");
     const [email, setEmail] = useState("");
-    const [fecha, setFecha] = useState(Date.now);
+    const [fecha, setFecha] = useState("");
     const [sintomas, setSintomas] = useState("");
     const [alerta, setAlerta] = useState({});
+    const { guardarPaciente } = usePaciente()
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -20,6 +22,7 @@ const Formulario = () => {
             return;
         }
         setAlerta({});
+        guardarPaciente({nombre, propietario, email, fecha, sintomas})
 
     }
 
@@ -27,7 +30,8 @@ const Formulario = () => {
 
   return (
     <>
-        <p className="text-lg text-center mb-10">
+        <h2 className="font-bold text-3xl text-center">Formulario de Ingreso</h2>
+        <p className="text-xl mt-5 mb-10 text-center">
             Agrega tus Pacientes y {" "}
             <span className="text-indigo-600 font-bold">
                 Administralos
