@@ -83,13 +83,40 @@ export const PacienteProvider = ({children}) => {
         setPacienteUnico(pacienteHook)
     }
 
+    const eliminarPaciente = async id => {
+        const token = localStorage.getItem("token")
+        const confirmar = confirm("¿Deseas eliminar este paciente?")
+        if(confirmar) {
+            try {
+                const url = `${import.meta.env.VITE_BACKEND_URL}/api/paciente/${id}`
+                const call = await fetch(url, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                })
+                const response = await call.json();
+                if(!call.ok) {
+                    console.log(response)
+                    return
+                }
+                const pacienteActualizado = paciente.filter(pacienteState => pacienteState._id !== id)
+                setPaciente(pacienteActualizado)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
     return(
         <PacienteContext.Provider 
         value={{
             paciente,
             guardarPaciente,
             setEdicion,
-            pacienteUnico
+            pacienteUnico,
+            eliminarPaciente
         }} >
             {children}
         </PacienteContext.Provider>
