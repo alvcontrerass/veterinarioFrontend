@@ -21,8 +21,8 @@ const ListadoPaciente = () => {
 			) : (
 				<>
 					<h2 className="font-bold text-3xl text-center">No hay pacientes</h2>
-					<p>
-						Comienza agreganod pacientes{" "}
+					<p className="text-xl mt-5 mb-10 text-center">
+						Comienza Agregando pacientes{" "}
 						<span className="text-indigo-600 font-bold">
 							y apareceran en este lugar
 						</span>
