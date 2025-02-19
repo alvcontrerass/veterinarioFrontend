@@ -43,8 +43,63 @@ export const AuthProvider = ({children}) => {
         setAuth({})
     }
 
-    const actualizarDatos = datos => {
-        console.log(datos)
+    const actualizarDatos = async datos => {
+        try {
+            const token = localStorage.getItem('token')
+            const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinario/perfil/${datos._id}`
+            const call = await fetch(url, {
+                method: "PUT",
+                body: JSON.stringify(datos),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const response = await call.json();
+            if(!call.ok) {
+                return {
+                    msg: response.msg,
+                    error: true
+                }
+            }
+            return {
+                msg: "Los datos fueron actualizados",
+                error: false
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const actualizarPassword = async datos => {
+        try {
+            const token = localStorage.getItem('token')
+            const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinario/actualizar-password`
+            const call = await fetch(url, {
+                method: "PUT",
+                body: JSON.stringify(datos),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const response = await call.json();
+            if(!call.ok) {
+                console.log(response)
+                return {
+                    msg: response.msg,
+                    error: true
+                }
+            }
+            console.log(response)
+            return {
+                msg: response.msg,
+                error: false
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return(
@@ -54,7 +109,8 @@ export const AuthProvider = ({children}) => {
                 setAuth,
                 cargando,
                 cerrarSesion,
-                actualizarDatos
+                actualizarDatos,
+                actualizarPassword
             }}
         >
             {children}

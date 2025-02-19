@@ -5,15 +5,15 @@ import { Alerta } from "../components/Alerta"
 
 
 const EditarPerfil = () => {
-    const { auth, actualizarDatos } = useAuth()
     const [perfil, setPerfil] = useState({})
     const [alerta, setAlerta] = useState({})
+    const { auth, actualizarDatos } = useAuth()
 
     useEffect(() => {
         setPerfil(auth)
     },[auth])
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
 
         const { nombre, email } = perfil
@@ -25,7 +25,8 @@ const EditarPerfil = () => {
             return
         }
 
-        actualizarDatos(perfil)
+        const resultado = await actualizarDatos(perfil)
+        setAlerta(resultado)
     }
 
     const { msg } = alerta
