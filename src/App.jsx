@@ -9,6 +9,8 @@ import Registrar from './pages/Registrar'
 import ConfirmarCuenta from './pages/ConfirmarCuenta'
 import ReestablecerPassword from './pages/ReestablecerPassword'
 import AdmnistrarPaciente from './pages/AdministrarPaciente'
+import EditarPerfil from './pages/EditarPerfil' 
+import CambiarPassword from './pages/CambiarPassword' 
 
 
 
@@ -25,8 +27,10 @@ function App() {
               <Route path="olvide-password/:token" element={<ReestablecerPassword />} />
               <Route path="confirmar/:token" element={<ConfirmarCuenta />} />
             </Route>
-            <Route path="/admin" element={<RutaProtegida />}>
+            <Route path="/admin" element={<RutaProtegida />} >
               <Route index element={<AdmnistrarPaciente />} />
+              <Route path="perfil" element={<EditarPerfil />} />
+              <Route path="cambiar-password" element={<CambiarPassword />} />
             </Route>
           </Routes>
         </PacienteProvider>

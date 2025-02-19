@@ -43,13 +43,18 @@ export const AuthProvider = ({children}) => {
         setAuth({})
     }
 
+    const actualizarDatos = datos => {
+        console.log(datos)
+    }
+
     return(
         <AuthContext.Provider
             value={{
                 auth,
                 setAuth,
                 cargando,
-                cerrarSesion
+                cerrarSesion,
+                actualizarDatos
             }}
         >
             {children}
