@@ -6,7 +6,7 @@ const ReestablecerPassword = () => {
 	const [password, setPassword] = useState("");
 	const [alerta, setAlerta] = useState({});
 	const [tokenValido, setTokenValido] = useState(false);
-    const [passwordModificado, setPasswordModificado] = useState(false);
+	const [passwordModificado, setPasswordModificado] = useState(false);
 	const params = useParams();
 	const { token } = params;
 
@@ -60,7 +60,7 @@ const ReestablecerPassword = () => {
 					msg: response.msg,
 					error: false,
 				});
-                setPasswordModificado(true);
+				setPasswordModificado(true);
 			} else {
 				setAlerta({
 					msg: "Hubo un error en el reestablecimiento de tu password. Vuelve a intentar o comunicate con soporte",
@@ -106,11 +106,10 @@ const ReestablecerPassword = () => {
 							/>
 						</form>
 						{passwordModificado && (
-                            <Link className="block text-center my-5 text-gray-500" to="/">
-							    ¡Prueba tu nuevo password! Inicia sesion
-						    </Link>
-                        )}
-                        
+							<Link className="block text-center my-5 text-gray-500" to="/">
+								¡Prueba tu nuevo password! Inicia sesion
+							</Link>
+						)}
 					</>
 				)}
 			</div>

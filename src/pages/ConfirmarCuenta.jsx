@@ -5,38 +5,38 @@ import { Alerta } from "../components/Alerta";
 const ConfirmarCuenta = () => {
 	const [cuentaConfirmada, setCuentaConfirmada] = useState(false);
 	const [cargando, setCargando] = useState(true);
-	const[alerta, setAlerta] = useState({})
+	const [alerta, setAlerta] = useState({});
 	const params = useParams();
 	const { token } = params;
 
 	useEffect(() => {
 		const confirmarCuenta = async () => {
 			try {
-				const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinario/confirmar/${token}`
-				const call = await fetch(url)
+				const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinario/confirmar/${token}`;
+				const call = await fetch(url);
 				const response = await call.json();
-				console.log(call.ok)
-				console.log(response)
-				if(!call.ok) {
+				console.log(call.ok);
+				console.log(response);
+				if (!call.ok) {
 					setAlerta({
 						msg: response.msg,
-						error: true
-					})
+						error: true,
+					});
 				} else {
 					setCuentaConfirmada(true);
 					setAlerta({
 						msg: response.msg,
-						error:false
-					})
+						error: false,
+					});
 				}
 			} catch (error) {
-				console.log(error)
+				console.log(error);
 			}
 
 			setCargando(false);
-		}
+		};
 		confirmarCuenta();
-	}, [])
+	}, []);
 
 	return (
 		<>

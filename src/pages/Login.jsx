@@ -10,16 +10,16 @@ const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [alerta, setAlerta] = useState({});
-	
-	const { setAuth } = useAuth()
+
+	const { setAuth } = useAuth();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if([email, password].includes("")) {
+		if ([email, password].includes("")) {
 			setAlerta({
 				msg: "Debe ingresar sus credenciales",
-				error: true
-			})
+				error: true,
+			});
 			return;
 		}
 
@@ -33,19 +33,18 @@ const Login = () => {
 				},
 			});
 			const response = await call.json();
-			console.log(call)
-			if(!call.ok) {
+			console.log(call);
+			if (!call.ok) {
 				setAlerta({
 					msg: response.msg,
 					error: true,
 				});
-				return
+				return;
 			}
-			localStorage.setItem("token", response.token)
-			console.log("token guardado en localStorage")
-			setAuth(response)
-			navigate("/admin")
-			
+			localStorage.setItem("token", response.token);
+			console.log("token guardado en localStorage");
+			setAuth(response);
+			navigate("/admin");
 		} catch (error) {
 			console.log(error);
 		}

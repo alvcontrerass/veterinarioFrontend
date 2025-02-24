@@ -13,24 +13,22 @@ const Formulario = () => {
 	const { guardarPaciente, pacienteUnico } = usePaciente();
 
 	useEffect(() => {
-        const formatearFecha = (fecha) => {
-            const nuevaFecha = new Date(fecha);
-            return new Intl.DateTimeFormat("en-CA", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-            }).format(
-                nuevaFecha,
-            );
-        };
-        if(pacienteUnico?.nombre) {
-            setNombre(pacienteUnico.nombre);
-            setPropietario(pacienteUnico.propietario);
-            setEmail(pacienteUnico.email);
-            setFecha(formatearFecha(pacienteUnico.fecha));
-            setSintomas(pacienteUnico.sintomas);
-            setId(pacienteUnico._id);
-        }
+		const formatearFecha = (fecha) => {
+			const nuevaFecha = new Date(fecha);
+			return new Intl.DateTimeFormat("en-CA", {
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit",
+			}).format(nuevaFecha);
+		};
+		if (pacienteUnico?.nombre) {
+			setNombre(pacienteUnico.nombre);
+			setPropietario(pacienteUnico.propietario);
+			setEmail(pacienteUnico.email);
+			setFecha(formatearFecha(pacienteUnico.fecha));
+			setSintomas(pacienteUnico.sintomas);
+			setId(pacienteUnico._id);
+		}
 	}, [pacienteUnico]);
 
 	const handleSubmit = (e) => {
@@ -43,18 +41,18 @@ const Formulario = () => {
 			});
 			return;
 		}
-		
+
 		guardarPaciente({ nombre, propietario, email, fecha, sintomas, id });
-        setAlerta({
-            msg: "Paciente Guardado Correctamente",
-            error: false
-        });
-        setNombre('');
-        setPropietario('');
-        setEmail('');
-        setFecha('');
-        setSintomas('');
-        setId('');
+		setAlerta({
+			msg: "Paciente Guardado Correctamente",
+			error: false,
+		});
+		setNombre("");
+		setPropietario("");
+		setEmail("");
+		setFecha("");
+		setSintomas("");
+		setId("");
 	};
 
 	const { msg } = alerta;
@@ -151,7 +149,7 @@ const Formulario = () => {
 				</div>
 				<input
 					type="submit"
-					value={id? "Actualizar Paciente" : "Agregar Paciente"}
+					value={id ? "Actualizar Paciente" : "Agregar Paciente"}
 					className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors"
 				/>
 				{msg && <Alerta alerta={alerta} />}

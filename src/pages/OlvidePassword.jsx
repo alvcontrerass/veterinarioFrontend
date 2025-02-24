@@ -1,52 +1,51 @@
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Alerta } from "../components/Alerta";
 
 const OlvidePassword = () => {
-	const [email, setEmail] = useState('');
+	const [email, setEmail] = useState("");
 	const [alerta, setAlerta] = useState({});
 
-	const handleSubmit = async e => {
-		e.preventDefault()
-		if(email === '') {
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		if (email === "") {
 			setAlerta({
-				msg: 'El email es obligatorio',
-				error: true
-			})
+				msg: "El email es obligatorio",
+				error: true,
+			});
 		}
 
 		try {
-			const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinario/olvide-password`
-			const call =await fetch(url, {
-			method: "POST",
-			body: JSON.stringify({email}),
-			headers: {
-			"Content-Type": "application/json"
-			}
-		})
-			const response = await call.json()
+			const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinario/olvide-password`;
+			const call = await fetch(url, {
+				method: "POST",
+				body: JSON.stringify({ email }),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			const response = await call.json();
 			if (call.status === 200) {
 				setAlerta({
 					msg: "Hemos enviado un email para que puedas reestablecer tu password",
-					error: false
-				})
+					error: false,
+				});
 			} else {
 				setAlerta({
 					msg: response.msg,
-					error: true
-				})
+					error: true,
+				});
 			}
 		} catch (error) {
-			console.log("Hubo un error en la conexion", error)
+			console.log("Hubo un error en la conexion", error);
 		}
-	}
+	};
 
-	const {msg} = alerta
-  
+	const { msg } = alerta;
 
-  return (
-    <>
-        <div>
+	return (
+		<>
+			<div>
 				<h1 className="text-indigo-600 font-black text-6xl text-center md:text-left p-5 ">
 					Reestablece tu Password y Recupera tu{" "}
 					<span className="text-black">Acceso</span>
@@ -63,7 +62,7 @@ const OlvidePassword = () => {
 								placeholder="email@email.com"
 								className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
 								value={email}
-                                onChange={e => setEmail(e.target.value)}
+								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</label>
 					</div>
@@ -80,16 +79,13 @@ const OlvidePassword = () => {
 					>
 						¿No tienes una cuenta? Registrate
 					</Link>
-					<Link
-						className="block text-center my-5 text-gray-500"
-						to="/"
-					>
+					<Link className="block text-center my-5 text-gray-500" to="/">
 						¿Tienes cuenta? Inicia Sesion
 					</Link>
 				</nav>
 			</div>
-    </>
-  )
-}
+		</>
+	);
+};
 
-export default OlvidePassword
+export default OlvidePassword;

@@ -49,7 +49,7 @@ const Paciente = ({ pacientes }) => {
 					className="py-2 px-10 bg-red-600 hover:bg-red-700 text-white uppercase font-bold rounded-xl cursor-pointer"
 					type="button"
 					onClick={() => {
-						eliminarPaciente(_id)
+						eliminarPaciente(_id);
 					}}
 				>
 					Eliminar
